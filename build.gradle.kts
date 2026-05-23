@@ -57,10 +57,18 @@ kotlin {
         binaries.framework { baseName = "Rcgen"; xcf.add(this) }
     }
     iosSimulatorArm64 {
-        binaries.framework { baseName = "Rcgen"; xcf.add(this) }
+        binaries.framework {
+            baseName = "Rcgen"
+            isStatic = true
+            xcf.add(this)
+        }
     }
     iosX64 {
-        binaries.framework { baseName = "Rcgen"; xcf.add(this) }
+        binaries.framework {
+            baseName = "Rcgen"
+            isStatic = true
+            xcf.add(this)
+        }
     }
 
     tvosArm64 {
