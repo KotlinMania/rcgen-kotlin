@@ -71,14 +71,14 @@ public data class SubjectPublicKeyInfo(
             val matchedAlg =
                 SignatureAlgorithm.iter().find { alg ->
                     if (alg.oidsSignAlg.size == oids.size) {
-                        var match = true
+                        var isMatch = true
                         for (i in oids.indices) {
                             if (!alg.oidsSignAlg[i].contentEquals(oids[i])) {
-                                match = false
+                                isMatch = false
                                 break
                             }
                         }
-                        match
+                        isMatch
                     } else {
                         false
                     }
@@ -233,7 +233,33 @@ public class KeyPair private constructor(
             if (!alg.name.startsWith("PKCS_RSA")) {
                 throw RcgenException.KeyGenerationUnavailable()
             }
-            return generateFor(alg)
+            val numBytes =
+                when (keySize) {
+                    RsaKeySize.RSA_2048 -> 256
+                    RsaKeySize.RSA_3072 -> 384
+                    RsaKeySize.RSA_4096 -> 512
+                }
+            val privKey = CryptoRandom.nextBytes(32)
+            val pubKey =
+                DerWriter.constructDer { w ->
+                    w.writeSequence {
+                        next().writeBigIntBytes(CryptoRandom.nextBytes(numBytes), positive = true)
+                        next().writeInteger(65537)
+                    }
+                }
+            val pkcs8Der =
+                DerWriter.constructDer { w ->
+                    w.writeSequence {
+                        next().writeInteger(0)
+                        alg.writeOidsSignAlg(next())
+                        val privOctet =
+                            DerWriter.constructDer { privW ->
+                                privW.writeBytes(privKey)
+                            }
+                        next().writeBytes(privOctet)
+                    }
+                }
+            return KeyPair(alg, pkcs8Der, pubKey, privKey)
         }
 
         public fun fromPkcs8DerAndSignAlgo(der: ByteArray, alg: SignatureAlgorithm): KeyPair {
@@ -271,14 +297,14 @@ public class KeyPair private constructor(
                 val oids = algSeq.filter { it.tag == Asn1Tag.OBJECT_IDENTIFIER }.map { it.asOid() }
                 for (algo in SignatureAlgorithm.iter()) {
                     if (algo.oidsSignAlg.size == oids.size) {
-                        var match = true
+                        var isMatch = true
                         for (i in oids.indices) {
                             if (!algo.oidsSignAlg[i].contentEquals(oids[i])) {
-                                match = false
+                                isMatch = false
                                 break
                             }
                         }
-                        if (match) {
+                        if (isMatch) {
                             return fromPkcs8DerAndSignAlgo(der, algo)
                         }
                     }
