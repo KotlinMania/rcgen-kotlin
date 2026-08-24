@@ -46,24 +46,61 @@ class StringTest {
     }
 
     @Test
-    fun testTeletexString() {
-        val bytes = byteArrayOf(0x48, 0x65, 0x6C, 0x6C, 0x6F)
-        val ts = TeletexString(bytes)
-        assertTrue(bytes.contentEquals(ts.asBytes()))
-        assertEquals("Hello", ts.asStr())
+    fun testPrintableString() {
+        val example = "CertificateTemplate"
+        val ps = PrintableString.tryFrom(example)
+        assertEquals(example, ps.asStr())
+        assertFailsWith<RcgenException.InvalidAsn1> { PrintableString.tryFrom("@") }
+        assertFailsWith<RcgenException.InvalidAsn1> { PrintableString.tryFrom("*") }
+    }
+
+    @Test
+    fun testIa5String() {
+        val example = "CertificateTemplate"
+        val ia5 = Ia5String.tryFrom(example)
+        assertEquals(example, ia5.asStr())
+        val valid = Ia5String.tryFrom("\u007F")
+        assertEquals("\u007F", valid.asStr())
+        assertFailsWith<RcgenException.InvalidAsn1> { Ia5String.tryFrom("\u008F") }
+    }
+
+    @Test
+    fun testTeletextString() {
+        val example = "CertificateTemplate"
+        val ts = TeletexString.tryFrom(example)
+        assertEquals(example, ts.asStr())
+        val valid = Ia5String.tryFrom("\u007F")
+        assertEquals("\u007F", valid.asStr())
+        assertFailsWith<RcgenException.InvalidAsn1> { Ia5String.tryFrom("\u008F") }
     }
 
     @Test
     fun testBmpString() {
-        val bs = BmpString("Hello")
-        assertEquals("Hello", bs.asStr())
-        assertEquals(10, bs.asBytes().size)
+        val expectedBytes = byteArrayOf(
+            0x00, 0x43, 0x00, 0x65, 0x00, 0x72, 0x00, 0x74, 0x00, 0x69, 0x00, 0x66, 0x00, 0x69,
+            0x00, 0x63, 0x00, 0x61, 0x00, 0x74, 0x00, 0x65, 0x00, 0x54, 0x00, 0x65, 0x00, 0x6d,
+            0x00, 0x70, 0x00, 0x6c, 0x00, 0x61, 0x00, 0x74, 0x00, 0x65,
+        )
+        val example = "CertificateTemplate"
+        val bs = BmpString(example)
+        assertTrue(expectedBytes.contentEquals(bs.asBytes()))
+        val valid = BmpString("\uFFFE")
+        assertEquals("\uFFFE", valid.asStr())
+        assertFailsWith<RcgenException.InvalidAsn1> { BmpString("\uFFFF") }
     }
 
     @Test
     fun testUniversalString() {
-        val us = UniversalString("Hello")
-        assertEquals("Hello", us.asStr())
-        assertEquals(20, us.asBytes().size)
+        val expectedBytes = byteArrayOf(
+            0x00, 0x00, 0x00, 0x43, 0x00, 0x00, 0x00, 0x65, 0x00, 0x00, 0x00, 0x72, 0x00, 0x00,
+            0x00, 0x74, 0x00, 0x00, 0x00, 0x69, 0x00, 0x00, 0x00, 0x66, 0x00, 0x00, 0x00, 0x69,
+            0x00, 0x00, 0x00, 0x63, 0x00, 0x00, 0x00, 0x61, 0x00, 0x00, 0x00, 0x74, 0x00, 0x00,
+            0x00, 0x65, 0x00, 0x00, 0x00, 0x54, 0x00, 0x00, 0x00, 0x65, 0x00, 0x00, 0x00, 0x6d,
+            0x00, 0x00, 0x00, 0x70, 0x00, 0x00, 0x00, 0x6c, 0x00, 0x00, 0x00, 0x61, 0x00, 0x00,
+            0x00, 0x74, 0x00, 0x00, 0x00, 0x65,
+        )
+        val example = "CertificateTemplate"
+        val us = UniversalString(example)
+        assertTrue(expectedBytes.contentEquals(us.asBytes()))
     }
 }

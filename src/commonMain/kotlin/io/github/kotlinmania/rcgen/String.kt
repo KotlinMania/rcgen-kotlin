@@ -138,7 +138,7 @@ public class BmpString(
         val out = ByteArray(str.length * 2)
         for (i in 0 until str.length) {
             val code = str[i].code
-            if (code > 0xFFFF) {
+            if (code >= 0xFFFF) {
                 throw RcgenException.InvalidAsn1(InvalidAsn1String.BmpString(str))
             }
             out[i * 2] = ((code ushr 8) and 0xFF).toByte()
