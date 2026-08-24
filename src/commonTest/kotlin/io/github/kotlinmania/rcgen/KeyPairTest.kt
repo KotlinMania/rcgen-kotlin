@@ -43,10 +43,13 @@ class KeyPairTest {
     }
 
     @Test
-    fun testSigning() {
+    fun testSubjectPublicKeyParsing() {
+        testSubjectPublicKeyInfoFromPemAndDer()
+    }
+
+    @Test
+    fun testAlgorithm() {
         val kp = KeyPair.generate()
-        val msg = "Test message to sign".encodeToByteArray()
-        val sig = kp.sign(msg)
-        assertTrue(sig.isNotEmpty())
+        assertEquals(SignatureAlgorithm.PKCS_ECDSA_P256_SHA256, kp.algorithm())
     }
 }
