@@ -114,10 +114,11 @@ class CertificateTest {
 
     @Test
     fun testWithKeyUsagesDecipheronlyOnly() {
-        val params = CertificateParams(
-            keyUsages = listOf(KeyUsagePurpose.DecipherOnly),
-            isCa = IsCa.Ca(BasicConstraints.Constrained(0)),
-        )
+        val params =
+            CertificateParams(
+                keyUsages = listOf(KeyUsagePurpose.DecipherOnly),
+                isCa = IsCa.Ca(BasicConstraints.Constrained(0)),
+            )
         val keyPair = KeyPair.generate()
         val cert = params.selfSigned(keyPair)
         assertTrue(cert.der().isNotEmpty())
@@ -125,9 +126,10 @@ class CertificateTest {
 
     @Test
     fun testWithExtendedKeyUsagesAny() {
-        val params = CertificateParams(
-            extendedKeyUsages = listOf(ExtendedKeyUsagePurpose.Any),
-        )
+        val params =
+            CertificateParams(
+                extendedKeyUsages = listOf(ExtendedKeyUsagePurpose.Any),
+            )
         val keyPair = KeyPair.generate()
         val cert = params.selfSigned(keyPair)
         assertTrue(cert.der().isNotEmpty())
@@ -135,12 +137,14 @@ class CertificateTest {
 
     @Test
     fun testWithExtendedKeyUsagesOther() {
-        val params = CertificateParams(
-            extendedKeyUsages = listOf(
-                ExtendedKeyUsagePurpose.Other(longArrayOf(1, 2, 3, 4)),
-                ExtendedKeyUsagePurpose.Other(longArrayOf(1, 2, 3, 4, 5, 6)),
-            ),
-        )
+        val params =
+            CertificateParams(
+                extendedKeyUsages =
+                    listOf(
+                        ExtendedKeyUsagePurpose.Other(longArrayOf(1, 2, 3, 4)),
+                        ExtendedKeyUsagePurpose.Other(longArrayOf(1, 2, 3, 4, 5, 6)),
+                    ),
+            )
         val keyPair = KeyPair.generate()
         val cert = params.selfSigned(keyPair)
         assertTrue(cert.der().isNotEmpty())
@@ -155,11 +159,13 @@ class CertificateTest {
 
     @Test
     fun testParseOtherNameAltName() {
-        val params = CertificateParams().apply {
-            subjectAltNames = mutableListOf(
-                SanType.OtherName(longArrayOf(1, 2, 3, 4), "Foo"),
-            )
-        }
+        val params =
+            CertificateParams().apply {
+                subjectAltNames =
+                    mutableListOf(
+                        SanType.OtherName(longArrayOf(1, 2, 3, 4), OtherNameValue.Utf8String("Foo")),
+                    )
+            }
         val keyPair = KeyPair.generate()
         val cert = params.selfSigned(keyPair)
         assertTrue(cert.der().isNotEmpty())
@@ -169,11 +175,13 @@ class CertificateTest {
     fun testParseIa5stringSubject() {
         val emailType = DnType.CustomDnType(longArrayOf(1, 2, 840, 113549, 1, 9, 1))
         val emailVal = DnValue.Ia5StringVal(Ia5String("foo@bar.com"))
-        val params = CertificateParams.new(listOf("crabs")).apply {
-            distinguishedName = DistinguishedName().apply {
-                push(emailType, emailVal)
+        val params =
+            CertificateParams.new(listOf("crabs")).apply {
+                distinguishedName =
+                    DistinguishedName().apply {
+                        push(emailType, emailVal)
+                    }
             }
-        }
         val keyPair = KeyPair.generate()
         val cert = params.selfSigned(keyPair)
         assertTrue(cert.der().isNotEmpty())
@@ -181,10 +189,11 @@ class CertificateTest {
 
     @Test
     fun testConvertsFromIp() {
-        val params = CertificateParams.new(listOf("crabs")).apply {
-            subjectAltNames = mutableListOf(SanType.IpAddress("2.4.6.8"))
-            isCa = IsCa.Ca(BasicConstraints.Unconstrained)
-        }
+        val params =
+            CertificateParams.new(listOf("crabs")).apply {
+                subjectAltNames = mutableListOf(SanType.IpAddress(byteArrayOf(2, 4, 6, 8)))
+                isCa = IsCa.Ca(BasicConstraints.Unconstrained)
+            }
         val caKey = KeyPair.generate()
         val cert = params.selfSigned(caKey)
         assertTrue(cert.der().isNotEmpty())

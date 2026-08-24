@@ -26,9 +26,10 @@ class CsrTest {
 
     @Test
     fun testDontWriteSansExtensionIfNoSansArePresent() {
-        val params = CertificateParams().apply {
-            keyUsages = mutableListOf(KeyUsagePurpose.DigitalSignature)
-        }
+        val params =
+            CertificateParams().apply {
+                keyUsages = mutableListOf(KeyUsagePurpose.DigitalSignature)
+            }
         val keyPair = KeyPair.generate()
         val csr = params.serializeRequest(keyPair)
         assertTrue(csr.der().isNotEmpty())
@@ -36,9 +37,10 @@ class CsrTest {
 
     @Test
     fun testWriteExtensionRequestIfEkusArePresent() {
-        val params = CertificateParams().apply {
-            extendedKeyUsages = mutableListOf(ExtendedKeyUsagePurpose.ClientAuth)
-        }
+        val params =
+            CertificateParams().apply {
+                extendedKeyUsages = mutableListOf(ExtendedKeyUsagePurpose.ClientAuth)
+            }
         val keyPair = KeyPair.generate()
         val csr = params.serializeRequest(keyPair)
         assertTrue(csr.der().isNotEmpty())
