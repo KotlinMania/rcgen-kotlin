@@ -30,4 +30,14 @@ class LibTest {
         assertTrue(certifiedIssuer.pem().contains("BEGIN CERTIFICATE"))
         assertTrue(certifiedIssuer.der().isNotEmpty())
     }
+
+    @Test
+    fun testSignatureAlgosDifferent() {
+        val algs = SignatureAlgorithm.iter()
+        for (i in algs.indices) {
+            for (j in algs.indices) {
+                kotlin.test.assertEquals(i == j, algs[i] == algs[j], "Mismatch for pair $i and $j")
+            }
+        }
+    }
 }
