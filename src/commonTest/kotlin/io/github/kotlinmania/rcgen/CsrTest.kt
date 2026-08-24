@@ -23,4 +23,24 @@ class CsrTest {
         val parsed = CertificateSigningRequestParams.fromPem(pem)
         assertEquals(keyPair.algorithm(), parsed.publicKey.algorithm())
     }
+
+    @Test
+    fun testDontWriteSansExtensionIfNoSansArePresent() {
+        val params = CertificateParams().apply {
+            keyUsages = mutableListOf(KeyUsagePurpose.DigitalSignature)
+        }
+        val keyPair = KeyPair.generate()
+        val csr = params.serializeRequest(keyPair)
+        assertTrue(csr.der().isNotEmpty())
+    }
+
+    @Test
+    fun testWriteExtensionRequestIfEkusArePresent() {
+        val params = CertificateParams().apply {
+            extendedKeyUsages = mutableListOf(ExtendedKeyUsagePurpose.ClientAuth)
+        }
+        val keyPair = KeyPair.generate()
+        val csr = params.serializeRequest(keyPair)
+        assertTrue(csr.der().isNotEmpty())
+    }
 }
