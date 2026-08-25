@@ -914,11 +914,7 @@ tasks.register("hostTests") {
 // Patch generated SPM Package.swift to include minimum macOS platform for Swift Concurrency
 tasks.matching { it.name.contains("GenerateSPMPackage") }.configureEach {
     doLast {
-        val spmDir =
-            layout.buildDirectory
-                .dir("SPMPackage")
-                .orNull
-                ?.asFile
+        val spmDir = layout.buildDirectory.dir("SPMPackage").orNull?.asFile
         if (spmDir != null && spmDir.exists()) {
             spmDir.walkTopDown().filter { it.name == "Package.swift" }.forEach { file ->
                 val text = file.readText()
@@ -935,21 +931,6 @@ tasks.matching { it.name.contains("GenerateSPMPackage") }.configureEach {
     }
 }
 
-tasks.matching { it.name.contains("BuildSPMPackage") }.configureEach {
-    doFirst {
-        layout.buildDirectory
-            .dir("SPMBuild/macosArm64/Debug/dd-a-files")
-            .orNull
-            ?.asFile
-            ?.mkdirs()
-        layout.buildDirectory
-            .dir("SPMBuild/macosArm64/Release/dd-a-files")
-            .orNull
-            ?.asFile
-            ?.mkdirs()
-    }
-}
-
 // Swift Export smoke test — produces the SPM package via embedSwiftExportForXcode
 // (spawned with the Xcode-style env it requires) and runs `swift test` against it,
 // so Swift Export breakage surfaces locally, not only in the swift.yml CI job.
@@ -958,39 +939,16 @@ tasks.matching { it.name.contains("BuildSPMPackage") }.configureEach {
 tasks.register("swiftExportSmokeTest") {
     group = "verification"
     description = "Builds the Swift Export SPM package and runs swift test against it."
-    mustRunAfter("hostTests")
     outputs.upToDateWhen { false }
 
     doLast {
         val execOperations = serviceOf<ExecOperations>()
-        val swiftBuildDirFile =
+        val swiftBuildDir =
             layout.buildDirectory
                 .dir("swift-test")
                 .get()
                 .asFile
-        swiftBuildDirFile.deleteRecursively()
-        swiftBuildDirFile.mkdirs()
-        val swiftBuildDir = swiftBuildDirFile.absolutePath
-        layout.buildDirectory
-            .dir("SPMBuild")
-            .get()
-            .asFile
-            .deleteRecursively()
-        layout.buildDirectory
-            .dir("SPMPackage")
-            .get()
-            .asFile
-            .deleteRecursively()
-        layout.buildDirectory
-            .dir("bin/macosArm64/SwiftExportBinaryDebugStatic")
-            .get()
-            .asFile
-            .mkdirs()
-        layout.buildDirectory
-            .dir("SPMBuild/macosArm64/Debug/dd-a-files")
-            .get()
-            .asFile
-            .mkdirs()
+                .absolutePath
         execOperations
             .exec {
                 workingDir = projectDir
@@ -998,6 +956,7 @@ tasks.register("swiftExportSmokeTest") {
                     "./gradlew",
                     "embedSwiftExportForXcode",
                     "--no-configuration-cache",
+                    "--no-daemon",
                     "--console=plain",
                 )
                 environment(
@@ -1014,22 +973,11 @@ tasks.register("swiftExportSmokeTest") {
                 )
             }.assertNormalExitValue()
 
-        val generatedPackageSwift =
-            layout.buildDirectory
-                .file("SPMPackage/macosArm64/Debug/Package.swift")
-                .get()
-                .asFile
-        if (generatedPackageSwift.exists()) {
-            val text = generatedPackageSwift.readText()
-            if (!text.contains("platforms:")) {
-                generatedPackageSwift.writeText(
-                    text.replaceFirst(
-                        Regex("(name:\\s*\"[^\"]*\",)"),
-                        "\$1\n    platforms: [.macOS(.v14)],",
-                    ),
-                )
-            }
-        }
+        execOperations
+            .exec {
+                workingDir = layout.projectDirectory.dir("swift-test-harness").asFile
+                commandLine("swift", "package", "reset")
+            }.assertNormalExitValue()
 
         execOperations
             .exec {
