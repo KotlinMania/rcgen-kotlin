@@ -49,7 +49,6 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 5/7 matched (target 6)
 - **Missing types:** `KeyPairKind`, `Error`
 - **Tests:** 2/2 matched
-- **Lint issues:** 1
 
 ### 3. oid
 
