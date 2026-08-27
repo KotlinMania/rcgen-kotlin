@@ -1,4 +1,4 @@
-// port-lint: tests rcgen/src/certificate.rs
+// port-lint: tests certificate.rs
 package io.github.kotlinmania.rcgen
 
 import kotlin.test.Test

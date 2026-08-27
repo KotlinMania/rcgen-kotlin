@@ -1,4 +1,4 @@
-// port-lint: tests rcgen/src/sign_algo.rs
+// port-lint: tests sign_algo.rs
 package io.github.kotlinmania.rcgen
 
 import kotlin.test.Test
