@@ -1,4 +1,4 @@
-// port-lint: tests key_pair.rs
+// port-lint: tests rcgen/src/key_pair.rs
 package io.github.kotlinmania.rcgen
 
 import kotlin.test.Test

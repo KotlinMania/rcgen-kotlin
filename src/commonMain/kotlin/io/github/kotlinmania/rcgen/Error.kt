@@ -1,4 +1,4 @@
-// port-lint: source error.rs
+// port-lint: source rcgen/src/error.rs
 package io.github.kotlinmania.rcgen
 
 /**
