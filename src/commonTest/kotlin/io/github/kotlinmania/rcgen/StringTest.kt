@@ -1,4 +1,4 @@
-// port-lint: tests string.rs
+// port-lint: tests rcgen/src/string.rs
 package io.github.kotlinmania.rcgen
 
 import kotlin.test.Test
