@@ -1,4 +1,4 @@
-// port-lint: source rcgen/src/oid.rs
+// port-lint: source oid.rs
 package io.github.kotlinmania.rcgen
 
 /**
