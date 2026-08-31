@@ -1,4 +1,4 @@
-// port-lint: source key_pair.rs
+// port-lint: source rcgen/src/key_pair.rs
 package io.github.kotlinmania.rcgen
 
 /**

@@ -1,4 +1,4 @@
-// port-lint: source certificate.rs
+// port-lint: source rcgen/src/certificate.rs
 package io.github.kotlinmania.rcgen
 
 import kotlinx.datetime.TimeZone
