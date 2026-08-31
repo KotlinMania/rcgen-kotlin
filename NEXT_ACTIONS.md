@@ -4,13 +4,13 @@ Based on AST analysis, here are the concrete next steps.
 
 ## Summary
 
-- **Files Present:** 9/10 (90.0%)
-- **Function parity:** 92/170 matched (target 282) — 54.1%
+- **Files Present:** 9/14 (64.3%)
+- **Function parity:** 92/178 matched (target 282) — 51.7%
 - **Class/type parity:** 37/56 matched (target 130) — 66.1%
-- **Combined symbol parity:** 129/226 matched (target 412) — 57.1%
-- **Average inline-code cosine:** 0.25 (function body across 9 matched files)
-- **Average documentation cosine:** 0.42 (doc text across 9 matched files)
-- **Cheat-zeroed Files:** 1
+- **Combined symbol parity:** 129/234 matched (target 412) — 55.1%
+- **Average inline-code cosine:** 0.27 (function body across 8 matched files)
+- **Average documentation cosine:** 0.46 (doc text across 8 matched files)
+- **Cheat-zeroed Files:** 2
 - **Critical Issues:** 9 files with <0.60 function similarity
 
 ## Priority 1: Fix Incomplete High-Dependency Files
@@ -27,18 +27,18 @@ No missing high-value files detected.
 
 Every matched file is listed below with function and type symbol parity.
 
-### 1. error
+### 1. rcgen.error
 
 - **Target:** `rcgen.Error`
 - **Similarity:** 0.00
-- **Dependents:** 3
-- **Priority Score:** 3030410.0
+- **Dependents:** 4
+- **Priority Score:** 4030410.0
 - **Functions:** 0/1 matched (target 5)
 - **Missing functions:** `fmt`
 - **Types:** 1/3 matched (target 27)
 - **Missing types:** `Error`, `ExternalError`
 
-### 2. key_pair
+### 2. rcgen.key_pair
 
 - **Target:** `rcgen.KeyPair`
 - **Similarity:** 0.38
@@ -50,7 +50,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `KeyPairKind`, `Error`
 - **Tests:** 2/2 matched
 
-### 3. oid
+### 3. rcgen.oid
 
 - **Target:** `rcgen.Oid [ZERO]`
 - **Similarity:** 0.00
@@ -61,19 +61,19 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/0 matched (target 1)
 - **Missing types:** _none_
 
-### 4. lib
+### 4. rcgen.lib
 
-- **Target:** `rcgen.Der`
-- **Similarity:** 0.12
+- **Target:** `rcgen.Der [STUB]`
+- **Similarity:** 0.00
 - **Dependents:** 0
-- **Priority Score:** 496308.8
+- **Priority Score:** 496310.0
 - **Functions:** 11/49 matched (target 66)
 - **Missing functions:** `deref`, `as_ref`, `key_usages`, `key`, `fmt`, `from_x509`, `from`, `ip_addr_from_octets`, `try_from_general`, `tag`, `get`, `remove`, `push`, `iter`, `from_name`, `to_u16`, `from_u16`, `derive`, `dt_strip_nanos`, `dt_to_generalized`, `write_dt_utc_or_generalized`, `write_distinguished_name`, `write_x509_extension`, `write_x509_authority_key_identifier`, `zeroize`, `from_slice`, `to_bytes`, `len`, `times`, `test_dt_utc_strip_nanos`, `test_dt_to_generalized`, `signature_algos_different`, `ipv4`, `ipv6`, `mismatch`, `none`, `too_many`, `with_ipv4`
 - **Types:** 3/14 matched
 - **Missing types:** `RcgenError`, `Target`, `SanType`, `OtherNameValue`, `DnValue`, `DistinguishedName`, `DistinguishedNameIterator`, `Item`, `KeyUsagePurpose`, `KeyIdMethod`, `SerialNumber`
 - **Tests:** 0/10 matched
 
-### 5. certificate
+### 5. rcgen.certificate
 
 - **Target:** `rcgen.Certificate`
 - **Similarity:** 0.44
@@ -85,7 +85,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Err`
 - **Tests:** 5/10 matched
 
-### 6. string
+### 6. rcgen.string
 
 - **Target:** `rcgen.String`
 - **Similarity:** 0.10
@@ -97,7 +97,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Error`, `Err`
 - **Tests:** 0/5 matched
 
-### 7. sign_algo
+### 7. rcgen.sign_algo
 
 - **Target:** `rcgen.SignAlgo`
 - **Similarity:** 0.26
@@ -108,7 +108,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/3 matched (target 6)
 - **Missing types:** `SignAlgo`
 
-### 8. csr
+### 8. rcgen.csr
 
 - **Target:** `rcgen.Csr`
 - **Similarity:** 0.41
@@ -120,7 +120,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 0/2 matched
 
-### 9. crl
+### 9. rcgen.crl
 
 - **Target:** `rcgen.Crl`
 - **Similarity:** 0.56

@@ -1,4 +1,4 @@
-// port-lint: source csr.rs
+// port-lint: source rcgen/src/csr.rs
 package io.github.kotlinmania.rcgen
 
 /**

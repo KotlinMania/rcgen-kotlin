@@ -1,4 +1,4 @@
-// port-lint: source sign_algo.rs
+// port-lint: source rcgen/src/sign_algo.rs
 package io.github.kotlinmania.rcgen
 
 /**
