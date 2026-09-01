@@ -1,4 +1,4 @@
-// port-lint: source rcgen/src/crl.rs
+// port-lint: source crl.rs
 package io.github.kotlinmania.rcgen
 
 import kotlin.time.Instant
