@@ -1,29 +1,9 @@
 # port-lint Proposed Changes
 
 **Generated:** 2026-08-31
-**Source:** tmp/rcgen/src
+**Source:** tmp
 **Target:** src/commonMain/kotlin/io/github/kotlinmania/rcgen
 
 These are review proposals only. They are emitted when a Rust -> Kotlin pair matches only after fallback normalization, so the existing `port-lint` header is not an exact provenance match.
 
-| Target file | Current header | Proposed header | Source path | Reason |
-|-------------|----------------|-----------------|-------------|--------|
-| `src/commonMain/kotlin/io/github/kotlinmania/rcgen/Error.kt` | `// port-lint: source rcgen/src/error.rs` | `// port-lint: source error.rs` | `error.rs` | `port-lint provenance header matched only after fallback normalization: 'rcgen/src/error.rs' vs expected 'error.rs'` |
-| `src/commonMain/kotlin/io/github/kotlinmania/rcgen/KeyPair.kt` | `// port-lint: source rcgen/src/key_pair.rs` | `// port-lint: source key_pair.rs` | `key_pair.rs` | `port-lint provenance header matched only after fallback normalization: 'rcgen/src/key_pair.rs' vs expected 'key_pair.rs'` |
-| `src/commonTest/kotlin/io/github/kotlinmania/rcgen/KeyPairTest.kt` | `// port-lint: tests rcgen/src/key_pair.rs` | `// port-lint: tests key_pair.rs` | `key_pair.rs` | `port-lint provenance header matched only after fallback normalization: 'tests:rcgen/src/key_pair.rs' vs expected 'key_pair.rs'` |
-| `src/commonMain/kotlin/io/github/kotlinmania/rcgen/Oid.kt` | `// port-lint: source rcgen/src/oid.rs` | `// port-lint: source oid.rs` | `oid.rs` | `port-lint provenance header matched only after fallback normalization: 'rcgen/src/oid.rs' vs expected 'oid.rs'` |
-| `src/commonMain/kotlin/io/github/kotlinmania/rcgen/Der.kt` | `// port-lint: source rcgen/src/lib.rs` | `// port-lint: source lib.rs` | `lib.rs` | `port-lint provenance header matched only after fallback normalization: 'rcgen/src/lib.rs' vs expected 'lib.rs'` |
-| `src/commonMain/kotlin/io/github/kotlinmania/rcgen/Crypto.kt` | `// port-lint: source rcgen/src/lib.rs` | `// port-lint: source lib.rs` | `lib.rs` | `port-lint provenance header matched only after fallback normalization: 'rcgen/src/lib.rs' vs expected 'lib.rs'` |
-| `src/commonMain/kotlin/io/github/kotlinmania/rcgen/Lib.kt` | `// port-lint: source rcgen/src/lib.rs` | `// port-lint: source lib.rs` | `lib.rs` | `port-lint provenance header matched only after fallback normalization: 'rcgen/src/lib.rs' vs expected 'lib.rs'` |
-| `src/commonMain/kotlin/io/github/kotlinmania/rcgen/Pem.kt` | `// port-lint: source rcgen/src/lib.rs` | `// port-lint: source lib.rs` | `lib.rs` | `port-lint provenance header matched only after fallback normalization: 'rcgen/src/lib.rs' vs expected 'lib.rs'` |
-| `src/commonTest/kotlin/io/github/kotlinmania/rcgen/LibTest.kt` | `// port-lint: tests rcgen/src/lib.rs` | `// port-lint: tests lib.rs` | `lib.rs` | `port-lint provenance header matched only after fallback normalization: 'tests:rcgen/src/lib.rs' vs expected 'lib.rs'` |
-| `src/commonMain/kotlin/io/github/kotlinmania/rcgen/Certificate.kt` | `// port-lint: source rcgen/src/certificate.rs` | `// port-lint: source certificate.rs` | `certificate.rs` | `port-lint provenance header matched only after fallback normalization: 'rcgen/src/certificate.rs' vs expected 'certificate.rs'` |
-| `src/commonTest/kotlin/io/github/kotlinmania/rcgen/CertificateTest.kt` | `// port-lint: tests rcgen/src/certificate.rs` | `// port-lint: tests certificate.rs` | `certificate.rs` | `port-lint provenance header matched only after fallback normalization: 'tests:rcgen/src/certificate.rs' vs expected 'certificate.rs'` |
-| `src/commonMain/kotlin/io/github/kotlinmania/rcgen/String.kt` | `// port-lint: source rcgen/src/string.rs` | `// port-lint: source string.rs` | `string.rs` | `port-lint provenance header matched only after fallback normalization: 'rcgen/src/string.rs' vs expected 'string.rs'` |
-| `src/commonTest/kotlin/io/github/kotlinmania/rcgen/StringTest.kt` | `// port-lint: tests rcgen/src/string.rs` | `// port-lint: tests string.rs` | `string.rs` | `port-lint provenance header matched only after fallback normalization: 'tests:rcgen/src/string.rs' vs expected 'string.rs'` |
-| `src/commonMain/kotlin/io/github/kotlinmania/rcgen/SignAlgo.kt` | `// port-lint: source rcgen/src/sign_algo.rs` | `// port-lint: source sign_algo.rs` | `sign_algo.rs` | `port-lint provenance header matched only after fallback normalization: 'rcgen/src/sign_algo.rs' vs expected 'sign_algo.rs'` |
-| `src/commonTest/kotlin/io/github/kotlinmania/rcgen/SignAlgoTest.kt` | `// port-lint: tests rcgen/src/sign_algo.rs` | `// port-lint: tests sign_algo.rs` | `sign_algo.rs` | `port-lint provenance header matched only after fallback normalization: 'tests:rcgen/src/sign_algo.rs' vs expected 'sign_algo.rs'` |
-| `src/commonMain/kotlin/io/github/kotlinmania/rcgen/Csr.kt` | `// port-lint: source rcgen/src/csr.rs` | `// port-lint: source csr.rs` | `csr.rs` | `port-lint provenance header matched only after fallback normalization: 'rcgen/src/csr.rs' vs expected 'csr.rs'` |
-| `src/commonTest/kotlin/io/github/kotlinmania/rcgen/CsrTest.kt` | `// port-lint: tests rcgen/src/csr.rs` | `// port-lint: tests csr.rs` | `csr.rs` | `port-lint provenance header matched only after fallback normalization: 'tests:rcgen/src/csr.rs' vs expected 'csr.rs'` |
-| `src/commonMain/kotlin/io/github/kotlinmania/rcgen/Crl.kt` | `// port-lint: source rcgen/src/crl.rs` | `// port-lint: source crl.rs` | `crl.rs` | `port-lint provenance header matched only after fallback normalization: 'rcgen/src/crl.rs' vs expected 'crl.rs'` |
-| `src/commonTest/kotlin/io/github/kotlinmania/rcgen/CrlTest.kt` | `// port-lint: tests rcgen/src/crl.rs` | `// port-lint: tests crl.rs` | `crl.rs` | `port-lint provenance header matched only after fallback normalization: 'tests:rcgen/src/crl.rs' vs expected 'crl.rs'` |
+_No fallback provenance matches detected._
