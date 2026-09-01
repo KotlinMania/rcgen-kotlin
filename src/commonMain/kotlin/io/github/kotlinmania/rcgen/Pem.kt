@@ -1,4 +1,4 @@
-// port-lint: source rcgen/src/lib.rs
+// port-lint: source lib.rs
 package io.github.kotlinmania.rcgen
 
 import kotlin.io.encoding.Base64

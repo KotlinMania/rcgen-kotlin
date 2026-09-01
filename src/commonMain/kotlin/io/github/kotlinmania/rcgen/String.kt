@@ -1,4 +1,4 @@
-// port-lint: source rcgen/src/string.rs
+// port-lint: source string.rs
 package io.github.kotlinmania.rcgen
 
 /**
