@@ -4,13 +4,13 @@ Based on AST analysis, here are the concrete next steps.
 
 ## Summary
 
-- **Files Present:** 9/10 (90.0%)
-- **Function parity:** 92/170 matched (target 282) — 54.1%
-- **Class/type parity:** 37/56 matched (target 130) — 66.1%
-- **Combined symbol parity:** 129/226 matched (target 412) — 57.1%
+- **Files Present:** 9/14 (64.3%)
+- **Function parity:** 81/129 matched (target 216) — 62.8%
+- **Class/type parity:** 34/42 matched (target 116) — 81.0%
+- **Combined symbol parity:** 115/171 matched (target 332) — 67.3%
 - **Average inline-code cosine:** 0.27 (function body across 8 matched files)
 - **Average documentation cosine:** 0.46 (doc text across 8 matched files)
-- **Cheat-zeroed Files:** 2
+- **Cheat-zeroed Files:** 1
 - **Critical Issues:** 9 files with <0.60 function similarity
 
 ## Priority 1: Fix Incomplete High-Dependency Files
@@ -27,23 +27,20 @@ No missing high-value files detected.
 
 Every matched file is listed below with function and type symbol parity.
 
-### 1. error
+### 1. rcgen.error
 
-- **Target:** `rcgen.Error [PROVENANCE-FALLBACK]`
+- **Target:** `rcgen.Error`
 - **Similarity:** 0.00
-- **Dependents:** 3
-- **Priority Score:** 3030410.0
+- **Dependents:** 4
+- **Priority Score:** 4030410.0
 - **Functions:** 0/1 matched (target 5)
 - **Missing functions:** `fmt`
 - **Types:** 1/3 matched (target 27)
 - **Missing types:** `Error`, `ExternalError`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rcgen/src/error.rs` vs expected `error.rs`
-- **Proposed provenance header:** `// port-lint: source error.rs` (current: `// port-lint: source rcgen/src/error.rs`)
-- **Lint issues:** 1
 
-### 2. key_pair
+### 2. rcgen.key_pair
 
-- **Target:** `rcgen.KeyPair [PROVENANCE-FALLBACK]`
+- **Target:** `rcgen.KeyPair`
 - **Similarity:** 0.38
 - **Dependents:** 2
 - **Priority Score:** 2073606.2
@@ -52,15 +49,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 5/7 matched (target 6)
 - **Missing types:** `KeyPairKind`, `Error`
 - **Tests:** 2/2 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rcgen/src/key_pair.rs` vs expected `key_pair.rs`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:rcgen/src/key_pair.rs` vs expected `key_pair.rs`
-- **Proposed provenance header:** `// port-lint: source key_pair.rs` (current: `// port-lint: source rcgen/src/key_pair.rs`)
-- **Proposed provenance header:** `// port-lint: tests key_pair.rs` (current: `// port-lint: tests rcgen/src/key_pair.rs`)
-- **Lint issues:** 2
 
-### 3. oid
+### 3. rcgen.oid
 
-- **Target:** `rcgen.Oid [ZERO] [PROVENANCE-FALLBACK]`
+- **Target:** `rcgen.Oid [ZERO]`
 - **Similarity:** 0.00
 - **Dependents:** 1
 - **Priority Score:** 1000010.0
@@ -68,36 +60,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** _none_
 - **Types:** 0/0 matched (target 1)
 - **Missing types:** _none_
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rcgen/src/oid.rs` vs expected `oid.rs`
-- **Proposed provenance header:** `// port-lint: source oid.rs` (current: `// port-lint: source rcgen/src/oid.rs`)
-- **Lint issues:** 1
 
-### 4. lib
+### 4. rcgen.certificate
 
-- **Target:** `rcgen.Der [STUB] [PROVENANCE-FALLBACK]`
-- **Similarity:** 0.00
-- **Dependents:** 0
-- **Priority Score:** 496310.0
-- **Functions:** 11/49 matched (target 66)
-- **Missing functions:** `deref`, `as_ref`, `key_usages`, `key`, `fmt`, `from_x509`, `from`, `ip_addr_from_octets`, `try_from_general`, `tag`, `get`, `remove`, `push`, `iter`, `from_name`, `to_u16`, `from_u16`, `derive`, `dt_strip_nanos`, `dt_to_generalized`, `write_dt_utc_or_generalized`, `write_distinguished_name`, `write_x509_extension`, `write_x509_authority_key_identifier`, `zeroize`, `from_slice`, `to_bytes`, `len`, `times`, `test_dt_utc_strip_nanos`, `test_dt_to_generalized`, `signature_algos_different`, `ipv4`, `ipv6`, `mismatch`, `none`, `too_many`, `with_ipv4`
-- **Types:** 3/14 matched
-- **Missing types:** `RcgenError`, `Target`, `SanType`, `OtherNameValue`, `DnValue`, `DistinguishedName`, `DistinguishedNameIterator`, `Item`, `KeyUsagePurpose`, `KeyIdMethod`, `SerialNumber`
-- **Tests:** 0/10 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rcgen/src/lib.rs` vs expected `lib.rs`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rcgen/src/lib.rs` vs expected `lib.rs`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rcgen/src/lib.rs` vs expected `lib.rs`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rcgen/src/lib.rs` vs expected `lib.rs`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:rcgen/src/lib.rs` vs expected `lib.rs`
-- **Proposed provenance header:** `// port-lint: source lib.rs` (current: `// port-lint: source rcgen/src/lib.rs`)
-- **Proposed provenance header:** `// port-lint: source lib.rs` (current: `// port-lint: source rcgen/src/lib.rs`)
-- **Proposed provenance header:** `// port-lint: source lib.rs` (current: `// port-lint: source rcgen/src/lib.rs`)
-- **Proposed provenance header:** `// port-lint: source lib.rs` (current: `// port-lint: source rcgen/src/lib.rs`)
-- **Proposed provenance header:** `// port-lint: tests lib.rs` (current: `// port-lint: tests rcgen/src/lib.rs`)
-- **Lint issues:** 5
-
-### 5. certificate
-
-- **Target:** `rcgen.Certificate [PROVENANCE-FALLBACK]`
+- **Target:** `rcgen.Certificate`
 - **Similarity:** 0.44
 - **Dependents:** 0
 - **Priority Score:** 156005.6
@@ -106,15 +72,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 11/12 matched (target 58)
 - **Missing types:** `Err`
 - **Tests:** 5/10 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rcgen/src/certificate.rs` vs expected `certificate.rs`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:rcgen/src/certificate.rs` vs expected `certificate.rs`
-- **Proposed provenance header:** `// port-lint: source certificate.rs` (current: `// port-lint: source rcgen/src/certificate.rs`)
-- **Proposed provenance header:** `// port-lint: tests certificate.rs` (current: `// port-lint: tests rcgen/src/certificate.rs`)
-- **Lint issues:** 2
 
-### 6. string
+### 5. rcgen.string
 
-- **Target:** `rcgen.String [PROVENANCE-FALLBACK]`
+- **Target:** `rcgen.String`
 - **Similarity:** 0.10
 - **Dependents:** 0
 - **Priority Score:** 102109.0
@@ -123,15 +84,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 5/7 matched (target 6)
 - **Missing types:** `Error`, `Err`
 - **Tests:** 0/5 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rcgen/src/string.rs` vs expected `string.rs`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:rcgen/src/string.rs` vs expected `string.rs`
-- **Proposed provenance header:** `// port-lint: source string.rs` (current: `// port-lint: source rcgen/src/string.rs`)
-- **Proposed provenance header:** `// port-lint: tests string.rs` (current: `// port-lint: tests rcgen/src/string.rs`)
-- **Lint issues:** 2
 
-### 7. sign_algo
+### 6. rcgen.sign_algo
 
-- **Target:** `rcgen.SignAlgo [PROVENANCE-FALLBACK]`
+- **Target:** `rcgen.SignAlgo`
 - **Similarity:** 0.26
 - **Dependents:** 0
 - **Priority Score:** 61207.4
@@ -139,15 +95,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `fmt`, `eq`, `hash`, `alg_ident_oid`, `write_params`
 - **Types:** 2/3 matched (target 6)
 - **Missing types:** `SignAlgo`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rcgen/src/sign_algo.rs` vs expected `sign_algo.rs`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:rcgen/src/sign_algo.rs` vs expected `sign_algo.rs`
-- **Proposed provenance header:** `// port-lint: source sign_algo.rs` (current: `// port-lint: source rcgen/src/sign_algo.rs`)
-- **Proposed provenance header:** `// port-lint: tests sign_algo.rs` (current: `// port-lint: tests rcgen/src/sign_algo.rs`)
-- **Lint issues:** 2
 
-### 8. csr
+### 7. rcgen.csr
 
-- **Target:** `rcgen.Csr [PROVENANCE-FALLBACK]`
+- **Target:** `rcgen.Csr`
 - **Similarity:** 0.41
 - **Dependents:** 0
 - **Priority Score:** 31305.9
@@ -156,15 +107,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 3/3 matched (target 4)
 - **Missing types:** _none_
 - **Tests:** 0/2 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rcgen/src/csr.rs` vs expected `csr.rs`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:rcgen/src/csr.rs` vs expected `csr.rs`
-- **Proposed provenance header:** `// port-lint: source csr.rs` (current: `// port-lint: source rcgen/src/csr.rs`)
-- **Proposed provenance header:** `// port-lint: tests csr.rs` (current: `// port-lint: tests rcgen/src/csr.rs`)
-- **Lint issues:** 2
 
-### 9. crl
+### 8. rcgen.crl
 
-- **Target:** `rcgen.Crl [PROVENANCE-FALLBACK]`
+- **Target:** `rcgen.Crl`
 - **Similarity:** 0.56
 - **Dependents:** 0
 - **Priority Score:** 11404.4
@@ -172,11 +118,6 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `from`
 - **Types:** 7/7 matched (target 8)
 - **Missing types:** _none_
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rcgen/src/crl.rs` vs expected `crl.rs`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:rcgen/src/crl.rs` vs expected `crl.rs`
-- **Proposed provenance header:** `// port-lint: source crl.rs` (current: `// port-lint: source rcgen/src/crl.rs`)
-- **Proposed provenance header:** `// port-lint: tests crl.rs` (current: `// port-lint: tests rcgen/src/crl.rs`)
-- **Lint issues:** 2
 
 ## Success Criteria
 
@@ -186,4 +127,17 @@ For each file to be considered "complete":
 - All tests ported
 - Documentation ported
 - port-lint header present
+
+## Reexport / Wiring Modules
+
+These files match `reexport_modules` patterns in `.ast_distance_config.json`. They are filtered out of
+normal priority and missing-file ladders because they are wiring
+modules, not direct logic ports. Consult them for call-site routing;
+do not treat them as the next implementation target by default.
+
+### Matched
+
+| Source | Target | Path |
+|--------|--------|------|
+| `rcgen.lib` | `rcgen.Der` | `rcgen/src/lib` |
 
