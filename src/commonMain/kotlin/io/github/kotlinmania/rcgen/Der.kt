@@ -340,7 +340,7 @@ public object DerReader {
             require(numBytes <= 4) { "Length too large: $numBytes bytes" }
             require(idx + numBytes <= bytes.size) { "Unexpected end of input reading long length" }
             var len = 0
-            for (i in 0 until numBytes) {
+            repeat(numBytes) {
                 len = (len shl 8) or (bytes[idx].toInt() and 0xFF)
                 idx++
             }
